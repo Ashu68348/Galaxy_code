@@ -1,1 +1,96 @@
+import sqlite3
+import tkinter
+from tkinter import *
+from tkinter import messagebox as tmsg
+
+# from PIL import Image, ImageTk
+
+root = Tk()
+root.title("Student Database")
+root.geometry("600x445")
+
+
+root.iconbitmap(r"favicon.ico")
+
+# image1 = Image.open("SRM1.png")
+# test = ImageTk.PhotoImage(image1)
+
+# label1 = tkinter.Label(image=test)
+# label1.image = test
+# label1.place(x=1, y=9)
+
+
+def getvals():
+    conn = sqlite3.connect("Ashish.db")
+
+    c = conn.cursor()
+    # get count of tables with name
+    c.execute('''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='student_1' ''')
+
+    # if count in 1, then table exists
+    if c.fetchone()[0] == 1:
+        print("TABLE ALREADY EXISTS!! INSERTING RECORD...")
+    else:
+        print("TABLE DOES NOT EXIST!! CREATING TABLE...")
+        Table = "CREATE TABLE student_1(Name CHAR, Reg_no CHAR, Section CHAR, Sem INT, Course CHAR, College CHAR)"
+        conn.execute(Table)
+
+    conn.execute('''
+                INSERT INTO student_1(Name, Reg_no, Section, Sem, Course, College) VALUES(?, ?, ?, ?, ?, ?)''', (
+    Name_value.get(), Reg_no_value.get(), Section_value.get(), Sem_value.get(), Course_value.get(),
+    College_value.get()))
+
+    cur = conn.cursor()
+
+    cur.execute(("SELECT * FROM student_1"))
+    rows = cur.fetchall()
+
+    for row in rows:
+        print(f"Name of the Student : {row[0]}")
+        print(f"Registration Number : {row[1]}")
+        print(f"Section : {row[2]}")
+        print(f"Semester: {row[3]}")
+        print(f"Course: {row[4]}")
+        print(f"College : {row[5]}")
+
+    conn.commit()
+    conn.close()
+    tmsg.showinfo("Database Configuration", "Your Record Submitted !!")
+
+Label(root, text="STUDENT DATABASE", font=("Times New Roman", 19, "bold"), pady=25).grid(row=0, column=3)
+
+Blank_label_1 = tkinter.Label(text="").grid(row=1, column=2)
+Name = tkinter.Label(text="Name of the Student :", font=("Times New Roman", 13)).grid(row=2, column=2)
+Reg_no = tkinter.Label(text="Registration Number :", font=("Times New Roman", 13)).grid(row=3, column=2)
+Section = tkinter.Label(text="Section :", font=("Times New Roman", 13)).grid(row=4, column=2)
+Sem = tkinter.Label(text="Semester :", font=("Times New Roman", 13)).grid(row=5, column=2)
+Course = tkinter.Label(text="Course :", font=("Times New Roman", 13)).grid(row=6, column=2)
+College = tkinter.Label(text="College :", font=("Times New Roman", 13)).grid(row=7, column=2)
+Ashish = tkinter.Label(text="").grid(row=8, column=2)
+Blank_label = tkinter.Label(text="").grid(row=9, column=2)
+
+Name_value = StringVar()
+Reg_no_value = StringVar()
+Section_value = StringVar()
+Sem_value = StringVar()
+Course_value = StringVar()
+College_value = StringVar()
+
+Name_entry = Entry(root, textvariable=Name_value, font=("Times New Roman", 13))
+Reg_no_entry = Entry(root, textvariable=Reg_no_value, font=("Times New Roman", 13))
+Section_entry = Entry(root, textvariable=Section_value, font=("Times New Roman", 13))
+Sem_entry = Entry(root, textvariable=Sem_value, font=("Times New Roman", 13))
+Course_entry = Entry(root, textvariable=Course_value, font=("Times New Roman", 13))
+College_entry = Entry(root, textvariable=College_value, font=("Times New Roman", 13))
+
+Name_entry.grid(row=2, column=3)
+Reg_no_entry.grid(row=3, column=3)
+Section_entry.grid(row=4, column=3)
+Sem_entry.grid(row=5, column=3)
+Course_entry.grid(row=6, column=3)
+College_entry.grid(row=7, column=3)
+
+btn = Button(root, text="Submit", font=("Times New Roman", 13), bd=5, pady=5, padx=20, command=getvals).grid(row=9,column=3)
+
+root.mainloop()
 
