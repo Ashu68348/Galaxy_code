@@ -1,0 +1,118 @@
+# calculator
+from tkinter import *
+root = Tk()
+root.geometry("644x600")
+root.title("Calculator")
+root.iconbitmap("favicon.ico")
+
+def click(event):
+    text = event.widget.cget("text")
+    print(text)
+    if text == "=":
+        if sc_value.get().isdigit():
+            value = int(sc_value.get())
+        else:
+            value = eval(screen.get())
+        sc_value.set(value)
+        screen.update()
+
+    elif text == "C":
+        sc_value.set = ("")
+        screen.update()
+
+    else:
+        sc_value.set(sc_value.get() + text)
+        screen.update()
+
+sc_value = StringVar()
+sc_value.set("")
+screen = Entry(root, textvariable=sc_value, font=("Times New Roman", 30, "bold"))
+screen.pack(fill=X, ipadx=8, pady=10, padx=10)
+
+
+f = Frame(root, bg="grey")
+b = Button(f, text="9", padx=28, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+
+b = Button(f, text="8", padx=28, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+
+b = Button(f, text="7", padx=28, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+f.pack()
+
+f = Frame(root, bg="grey")
+b = Button(f, text="6", padx=28, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+
+b = Button(f, text="5", padx=28, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+
+b = Button(f, text="4", padx=28, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+f.pack()
+
+f = Frame(root, bg="grey")
+b = Button(f, text="3", padx=28, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+
+b = Button(f, text="2", padx=28, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+
+b = Button(f, text="1", padx=28, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+f.pack()
+
+f = Frame(root, bg="grey")
+b = Button(f, text="-", padx=29, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+
+b = Button(f, text="0", padx=29, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+
+b = Button(f, text="*", padx=29, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+f.pack()
+
+f = Frame(root, bg="grey")
+b = Button(f, text="/", padx=25, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+
+b = Button(f, text="%", padx=25, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+
+b = Button(f, text="+", padx=25, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+f.pack()
+
+f = Frame(root, bg="grey")
+b = Button(f, text="C", padx=27, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+
+b = Button(f, text=".", padx=27, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+
+b = Button(f, text="=", bg="sky blue", padx=27, pady=5, font=("Times New Roman", 20, "bold"))
+b.pack(side=LEFT, padx=18, pady=12)
+b.bind("<Button-1>", click)
+f.pack()
+
+root.mainloop()
+
